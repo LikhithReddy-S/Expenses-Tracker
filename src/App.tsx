@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import ExpensesList from "./components/ExpensesList";
 import Form from "./components/Form";
 import ExpenseFilter from "./components/ExpenseFilter";
-import categories from "./categories";
+
 export interface Expense {
   id: number;
   description: string;
@@ -16,26 +16,14 @@ export default function App() {
     setSelectedCategory(category);
   };
 
-  const [expenses, setExpenses] = useState<Expense[]>([
-    {
-      id: 1,
-      description: "Groceries",
-      amount: 1500,
-      category: "Groceries",
-    },
-    {
-      id: 2,
-      description: "Electricity Bill",
-      amount: 1800,
-      category: "Utilities",
-    },
-    {
-      id: 3,
-      description: "Netflix Subscription",
-      amount: 499,
-      category: "Entertainment",
-    },
-  ]);
+  const [expenses, setExpenses] = useState<Expense[]>(()=>{
+    const savedExpenses = localStorage.getItem("expenses")
+    return savedExpenses ? JSON.parse(savedExpenses) : []
+  });
+
+  useEffect(()=>{
+    localStorage.setItem("expenses",JSON.stringify(expenses))
+  },[expenses])
 
   const visibleExpenses = selectedCategory
     ? expenses.filter((e) => e.category === selectedCategory)
