@@ -4,7 +4,7 @@ import Form from "./components/Form";
 import ExpenseFilter from "./components/ExpenseFilter";
 import categories from "./categories";
 export interface Expense {
-  id: Number;
+  id: number;
   description: string;
   amount: number;
   category: string;
@@ -35,73 +35,30 @@ export default function App() {
       amount: 499,
       category: "Entertainment",
     },
-    {
-      id: 4,
-      description: "Internet Bill",
-      amount: 999,
-      category: "Utilities",
-    },
-    {
-      id: 5,
-      description: "Phone Recharge",
-      amount: 599,
-      category: "Utilities",
-    },
-    {
-      id: 6,
-      description: "Concert Ticket",
-      amount: 3000,
-      category: "Entertainment",
-    },
-    {
-      id: 7,
-      description: "Movie Ticket",
-      amount: 750,
-      category: "Entertainment",
-    },
-    {
-      id: 8,
-      description: "Water Bill",
-      amount: 850,
-      category: "Utilities",
-    },
-    {
-      id: 9,
-      description: "Cable TV Subscription",
-      amount: 600,
-      category: "Entertainment",
-    },
-    {
-      id: 10,
-      description: "Supermarket Shopping",
-      amount: 2000,
-      category: "Groceries",
-    },
   ]);
 
   const visibleExpenses = selectedCategory
     ? expenses.filter((e) => e.category === selectedCategory)
     : expenses;
 
-  const onDelete = (ids: number) => {
-    setExpenses(expenses.filter((expense) => expense.id !== ids));
-  };
-
-  const onSubmit = (data: ExpenseFormData) => {
-    setExpenses([...expenses, { ...data, id: expenses.length + 1 }]);
-  };
-
   return (
     <div>
       <div className="mb-3">
-        <Form onSubmit={onSubmit} />
+        <Form
+          onSubmit={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])
+          }
+        />
       </div>
 
       <div className="mb-3">
         <ExpenseFilter onSelectCategory={onSelectCategory} />
       </div>
 
-      <ExpensesList expenses={visibleExpenses} onDelete={onDelete} />
+      <ExpensesList
+        expenses={visibleExpenses}
+        onDelete={(id) => setExpenses(expenses.filter((e) => e.id !== id))}
+      />
     </div>
   );
 }
