@@ -1,37 +1,31 @@
-import { FieldValues, useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import categories from "../categories";
 
-interface Expenses {
-  id: number;
-  description: string;
-  amount: number;
-  category: string;
+interface Props {
+  onSubmit: (data: ExpenseFormData) => void;
 }
-// interface props {
-//   expenses: Expenses[];
-//   onAddExpense: (newExpense: Expenses) => void;
-// }
 
 const schema = z.object({
   description: z.string().min(3),
   amount: z.number(),
-  category: z.enum(["Entertainment", "Utilities", "Groceries"]),
+  category: z.enum(categories,{
+    errorMap:()=>({message:'category is required'})
+  }),
 });
 
-type FormData = z.infer<typeof schema>;
+export type ExpenseFormData = z.infer<typeof schema>;
 
-export default function Form() {
+
+export default function Form({onSubmit}:props) {
   const {
     register,
     handleSubmit,
     formState: { errors },reset
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
-  const onSubmit = (data: FormData) => {
-    console.log(data)
-  };
+  } = useForm<ExpenseFormData>({ resolver: zodResolver(schema) });
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(data =>onSubmit(data))}>
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
           Description
@@ -65,9 +59,8 @@ export default function Form() {
           Category
         </label>
         <select className="form-select" id="category" {...register("category")}>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Utilities">Utilities</option>
-          <option value="Groceries">Groceries</option>
+          <option value=""></option>
+          {categories.map(category => <option value={category}>{category}</option>)}
         </select>
         {errors.category && (
           <p className="text-danger">{errors.category.message}</p>
