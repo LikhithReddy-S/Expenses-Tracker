@@ -1,50 +1,49 @@
 # React + TypeScript + Vite
+# Expenses Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Demo
+[Expenses Tracker](https://expenses-tracker-nine-rust.vercel.app/)
 
-Currently, two official plugins are available:
+## Description
+Expenses Tracker is a simple web application designed to help users manage and track their daily expenses efficiently. The application stores data locally using **Local Storage**, ensuring that users can access their saved expenses without needing an account or database.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- Add, edit, and delete expenses
+- Stores data using **Local Storage**, ensuring persistence on the same device
+- Responsive UI for an optimal experience on any device
+- Deployed using **Vercel** for easy accessibility
 
-## Expanding the ESLint configuration
+## Tech Stack
+- **Frontend**: HTML, CSS, JavaScript
+- **Storage**: Local Storage
+- **Deployment**: Vercel
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Getting Started
+### Clone the Repository
+```bash
+git clone https://github.com/LikhithReddy-S/Expenses-Tracker.git
+cd Expenses-Tracker
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Open Locally
+Simply open the `index.html` file in your browser to start using the tracker.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Deployment
+This project was initially intended to be hosted on **GitHub Pages**, but due to issues, it has been successfully deployed using **Vercel**. You can access it at:
+[https://expenses-tracker-nine-rust.vercel.app/](https://expenses-tracker-nine-rust.vercel.app/)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Contributing
+If you'd like to contribute:
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature-branch`)
+3. Commit your changes (`git commit -m "Added new feature"`)
+4. Push to the branch (`git push origin feature-branch`)
+5. Open a pull request
+
+## License
+This project is open-source and available under the **MIT License**.
+
+---
+Feel free to use the application and suggest improvements!
+
+
